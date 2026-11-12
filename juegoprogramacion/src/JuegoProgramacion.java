@@ -1,3 +1,4 @@
+
 /*
 Descripción: juego de aventura de texto con combate único e inventario.
 Inventario: array unidimensional (como en ArrayExample01) con posiciones fijas:
@@ -22,18 +23,19 @@ public class JuegoProgramacion {
         String[] inventario = new String[2];
 
         int respuestasMenu;
-        do {                    //este do es para que el menu salga hasta que el usuario ponga un numero valido
+        do { // este do es para que el menu salga hasta que el usuario ponga un numero valido
             System.out.println("\n╔════════════════════════════════════════╗");
             System.out.println("║              MENÚ PRINCIPAL            ║");
             System.out.println("╠════════════════════════════════════════╣");
             System.out.println("║  1.  Inicio de partida                 ║");
-            System.out.println("║  2.  Inspeccionar personaje            ║");
+            System.out.println("║  2.  Partida anterior                  ║");
             System.out.println("║  3.  Inspeccionar pistas               ║");
             System.out.println("║  4.  Salir del juego                   ║");
             System.out.println("╚════════════════════════════════════════╝");
             System.out.print("  Elige una opción: ");
 
-            respuestasMenu = scanner.nextInt();//para leer la opcion del usuario y dependiendo de la que ponga pase una o otra
+            respuestasMenu = scanner.nextInt();// para leer la opcion del usuario y dependiendo de la que ponga pase una
+                                               // o otra
             switch (respuestasMenu) {
                 case 1:
                     puntosDeVida = VIDA_INICIAL;
@@ -47,7 +49,13 @@ public class JuegoProgramacion {
 
                     System.out.println("\n¡Iniciando partida!\n");
                     scanner.nextLine();
-                    System.out.print("Introduce el nombre de tu personaje: ");
+                    do {
+                        System.out.print("Introduce el nombre de tu personaje: ");
+                        nombre = scanner.nextLine().trim();
+                        if (nombre.isEmpty()) {
+                            System.out.println("El nombre no puede estar vacío. Inténtalo de nuevo.");
+                        }
+                    } while (nombre.isEmpty());
                     nombre = scanner.nextLine();
                     System.out.println("Bienvenido " + nombre);
                     System.out.println("Empiezas con: " + VIDA_INICIAL + " puntos de vida");
@@ -74,13 +82,15 @@ public class JuegoProgramacion {
                                 System.out.println("Te acercas al espejo y ves una cara que no reconoces.");
                                 break;
                             case 2:
-                                System.out.println("Decides no ir al espejo, no recuerdas tu cara pero a lo mejor es por algo...");
+                                System.out.println(
+                                        "Decides no ir al espejo, no recuerdas tu cara pero a lo mejor es por algo...");
                                 break;
                             default:
                                 System.out.println("Opción no válida. Inténtalo de nuevo.");
                                 break;
                         }
-                    } while (respuestaEspejo != 1 && respuestaEspejo != 2); // mientras la respuesta no sea 1 o 2 el menu se repite
+                    } while (respuestaEspejo != 1 && respuestaEspejo != 2); // mientras la respuesta no sea 1 o 2 el
+                                                                            // menu se repite
 
                     System.out.println("\n-------------------------");
                     System.out.println("De repente escuchas un ruido, como si una estantería se hubiera caído");
@@ -94,10 +104,12 @@ public class JuegoProgramacion {
                         respuestaPuerta = scanner.nextInt();
                         switch (respuestaPuerta) {
                             case 1:
-                                System.out.println("Abres la puerta con valentía, como si fuera natural para ti, ¿o no lo es?");
+                                System.out.println(
+                                        "Abres la puerta con valentía, como si fuera natural para ti, ¿o no lo es?");
                                 break;
                             case 2:
-                                System.out.println("Al asomarte por el hueco te tropiezas y te caes abriendo la puerta con la cara, ¿siempre has sido así de torpe?");
+                                System.out.println(
+                                        "Al asomarte por el hueco te tropiezas y te caes abriendo la puerta con la cara, ¿siempre has sido así de torpe?");
                                 break;
                             default:
                                 System.out.println("Opción no válida. Inténtalo de nuevo.");
@@ -110,7 +122,8 @@ public class JuegoProgramacion {
                     scanner.nextLine();
                     System.out.println("Ves como una sombra se te acerca haciendo ruidos extraños");
                     scanner.nextLine();
-                    System.out.println("Llega a una zona con luz y te fijas en que es un esqueleto entero moviendose hacia ti");
+                    System.out.println(
+                            "Llega a una zona con luz y te fijas en que es un esqueleto entero moviendose hacia ti");
                     scanner.nextLine();
                     System.out.println("-Necesito encontrar un arma");
                     scanner.nextLine();
@@ -126,7 +139,8 @@ public class JuegoProgramacion {
                             System.out.println("Eliges la opcion segura , pero quizas no la mas fuerte");
                             inventario[0] = "Libro";
                         } else if (respuestasSalon == 2) {
-                            System.out.println("Vas corriendo a por la espada y la alcanzas, ¡la agarras justo a tiempo!");
+                            System.out.println(
+                                    "Vas corriendo a por la espada y la alcanzas, ¡la agarras justo a tiempo!");
                             inventario[0] = "Espada";
                         } else {
                             System.out.println("Opción no válida. Inténtalo de nuevo.");
@@ -138,13 +152,14 @@ public class JuegoProgramacion {
                     boolean usaEspada = inventario[0].equals("Espada");
                     String nombreArma;
                     if (usaEspada) {
-                     nombreArma = "la espada";
+                        nombreArma = "la espada";
                     } else {
                         nombreArma = "el libro";
                     }
-                     vidaEnemigo = VIDA_INICIAL_ENEMIGO;
+                    vidaEnemigo = VIDA_INICIAL_ENEMIGO;
 
-                    System.out.println("El esqueleto se abalanza sobre ti. ¡Comienza el combate! El enemigo tiene " + vidaEnemigo + " puntos de vida.");
+                    System.out.println("El esqueleto se abalanza sobre ti. ¡Comienza el combate! El enemigo tiene "
+                            + vidaEnemigo + " puntos de vida.");
 
                     while (vidaEnemigo > 0 && puntosDeVida > 0) {
                         System.out.println("\n¿Qué quieres hacer?");
@@ -156,31 +171,33 @@ public class JuegoProgramacion {
                         if (opcionCombate == 1) {
                             int dano;
                             if (usaEspada) {
-                                dano = (int) (Math.random() * 16) + 20;   // espada: 20-35
+                                dano = (int) (Math.random() * 16) + 20; // espada: 20-35
                             } else {
-                                dano = (int) (Math.random() * 6) + 15;    // libro: 15-20
+                                dano = (int) (Math.random() * 6) + 15; // libro: 15-20
                             }
                             vidaEnemigo = vidaEnemigo - dano;
                             System.out.println("¡Atacas con " + nombreArma + " y causas " + dano + " puntos de daño!");
 
                             if (vidaEnemigo <= 0) {
-                                System.out.println("¡El esqueleto recibe el golpe final y se desmorona en pedazos! Has ganado el combate.");
+                                System.out.println(
+                                        "¡El esqueleto recibe el golpe final y se desmorona en pedazos! Has ganado el combate.");
                                 break;
                             } else {
                                 System.out.println("Al esqueleto aún le quedan " + vidaEnemigo + " puntos de vida.");
                                 int danoEnemigo = (int) (Math.random() * 5) + 5;
                                 puntosDeVida = puntosDeVida - danoEnemigo;
-                                System.out.println("El esqueleto te contraataca. Pierdes " + danoEnemigo + " puntos de vida. (Tu vida: " + puntosDeVida + ")");
+                                System.out.println("El esqueleto te contraataca. Pierdes " + danoEnemigo
+                                        + " puntos de vida. (Tu vida: " + puntosDeVida + ")");
                             }
                         } else if (opcionCombate == 2) {
                             System.out.println("Te pones en guardia y usas " + nombreArma + " para bloquear el golpe.");
                             int danoEnemigoReducido = (int) (Math.random() * 3) + 2;
                             puntosDeVida = puntosDeVida - danoEnemigoReducido;
-                            System.out.println("¡Amortiguas el ataque enemigo! Solo pierdes " + danoEnemigoReducido + " puntos de vida. (Tu vida: " + puntosDeVida + ")");
+                            System.out.println("¡Amortiguas el ataque enemigo! Solo pierdes " + danoEnemigoReducido
+                                    + " puntos de vida. (Tu vida: " + puntosDeVida + ")");
                         } else {
-                            puntosDeVida= puntosDeVida-10;
-                            System.out.println("Opción inválida. Pierdes tu turno y tu vida baja a: "+puntosDeVida);
-                            
+                            puntosDeVida = puntosDeVida - 10;
+                            System.out.println("Opción inválida. Pierdes tu turno y tu vida baja a: " + puntosDeVida);
 
                         }
                     }
@@ -201,9 +218,11 @@ public class JuegoProgramacion {
                     System.out.println("Estas son tus estadisticas Vida:" + puntosDeVida);
                     System.out.println("\n-------------------------");
 
-                    System.out.println("\nBajas a la mazmorra, al bajar ves a lo lejos un grupo de personas gritandote algo que no llegas a entender ");
+                    System.out.println(
+                            "\nBajas a la mazmorra, al bajar ves a lo lejos un grupo de personas gritandote algo que no llegas a entender ");
                     scanner.nextLine();
-                    System.out.println("Al acercarte te das cuenta que son un grupo de esqueletos , igual al que te ataco antes ");
+                    System.out.println(
+                            "Al acercarte te das cuenta que son un grupo de esqueletos , igual al que te ataco antes ");
                     scanner.nextLine();
                     System.out.println("El grupo se acerca y empiezan a celebrar entre ellos, ¿es algo bueno?");
                     scanner.nextLine();
@@ -229,7 +248,7 @@ public class JuegoProgramacion {
                         fraseAtaque = "Lanzas el hechizo y acabas con ellos.";
                     }
                     System.out.println("2. No, dejo que se acerquen");
- 
+
                     int respuestaFinal;
                     do {
                         respuestaFinal = scanner.nextInt();
@@ -237,7 +256,8 @@ public class JuegoProgramacion {
                             case 1:
                                 System.out.println(fraseAtaque);
                                 scanner.nextLine();
-                                System.out.println("Ves que a uno de esos monstruos se le cae una llave al caer al suelo.");
+                                System.out.println(
+                                        "Ves que a uno de esos monstruos se le cae una llave al caer al suelo.");
                                 scanner.nextLine();
                                 System.out.println("¡Por fin saldre de aqui!");
                                 scanner.nextLine();
@@ -245,9 +265,10 @@ public class JuegoProgramacion {
                                 scanner.nextLine();
                                 System.out.println("La coges y te ves a ti con un grupo de gente.");
                                 scanner.nextLine();
-                                System.out.println("Ahora recuerdas todo, viniste a buscar a tu familia y parece que la encontraste...");
+                                System.out.println(
+                                        "Ahora recuerdas todo, viniste a buscar a tu familia y parece que la encontraste...");
                                 scanner.nextLine();
-                                inventario[1] = "Llave";   // la llave entra en el hueco 1
+                                inventario[1] = "Llave"; // la llave entra en el hueco 1
                                 System.out.println("Coges la llave y sales de alli.");
                                 System.out.println("\n╔════════════════════════════════════════╗");
                                 System.out.println("║                FINAL                   ║");
@@ -255,7 +276,7 @@ public class JuegoProgramacion {
                                 System.out.println("║            ¿HAS GANADO?                ║");
                                 System.out.println("╚════════════════════════════════════════╝");
                                 break;
- 
+
                             case 2:
                                 System.out.println("Dejas que se acerquen.");
                                 scanner.nextLine();
@@ -272,7 +293,7 @@ public class JuegoProgramacion {
                                 System.out.println("║             ¡HAS GANADO!               ║");
                                 System.out.println("╚════════════════════════════════════════╝");
                                 break;
- 
+
                             default:
                                 System.out.println("Opción no válida. Inténtalo de nuevo.");
                                 break;
@@ -287,7 +308,7 @@ public class JuegoProgramacion {
 
                     // recorremos el inventario y mostramos solo los huecos ocupados
                     System.out.println("Inventario:");
-                     hayObjetos = false;
+                    hayObjetos = false;
                     for (int contador = 0; contador < inventario.length; contador++) {
                         if (inventario[contador] != null) {
                             System.out.println("  - " + inventario[contador]);
@@ -297,16 +318,15 @@ public class JuegoProgramacion {
                     if (!hayObjetos) {
                         System.out.println("  Vacío / Ningún objeto");
                     }
-                    
+
                     System.out.println("\nPara volver introduce cualquier número y pulsa Enter:");
-                     volver = scanner.nextInt();
+                    volver = scanner.nextInt();
                     break;
 
                 case 3:
-                    System.out.println("Tus pistas...");
-                    System.out.println("Todo lo que hagas tiene una consecuencia...");
+                    System.out.println("Futura implementacion...");
                     System.out.println("Para volver introduce cualquier numero y pulsa enter");
-                     volver = scanner.nextInt();
+                    volver = scanner.nextInt();
                     break;
 
                 case 4:
@@ -322,7 +342,3 @@ public class JuegoProgramacion {
         scanner.close();
     }
 }
-
-
-        
-    
