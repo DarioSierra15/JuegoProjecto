@@ -1,7 +1,7 @@
 
 /*
 Descripción: juego de aventura de texto con combate único e inventario.
-Inventario: array unidimensional (como en ArrayExample01) con posiciones fijas:
+Inventario: array unidimensional  con posiciones fijas:
     inventario[0] -> arma  ("Espada" o "Libro")
     inventario[1] -> llave ("Llave")
 Un hueco en null significa que ese objeto no se tiene.
@@ -13,7 +13,7 @@ public class JuegoProgramacion {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        String nombre = null;
+        String nombre = "";
         final int VIDA_INICIAL = 100;
         final int VIDA_INICIAL_ENEMIGO = 50;
         int puntosDeVida = VIDA_INICIAL;
@@ -35,12 +35,13 @@ public class JuegoProgramacion {
             System.out.print("  Elige una opción: ");
 
             respuestasMenu = scanner.nextInt();// para leer la opcion del usuario y dependiendo de la que ponga pase una
-                                               // o otra
             switch (respuestasMenu) {
                 case 1:
                     puntosDeVida = VIDA_INICIAL;
                     int vidaEnemigo = VIDA_INICIAL_ENEMIGO;
                     boolean hayObjetos = false;
+                    boolean enPartida = true;
+                    while (enPartida) {
 
                     // vaciamos el inventario al empezar una partida nueva
                     for (int contador = 0; contador < inventario.length; contador++) {
@@ -56,7 +57,6 @@ public class JuegoProgramacion {
                             System.out.println("El nombre no puede estar vacío. Inténtalo de nuevo.");
                         }
                     } while (nombre.isEmpty());
-                    nombre = scanner.nextLine();
                     System.out.println("Bienvenido " + nombre);
                     System.out.println("Empiezas con: " + VIDA_INICIAL + " puntos de vida");
                     System.out.println("-------------------------");
@@ -210,10 +210,11 @@ public class JuegoProgramacion {
                         System.out.println("║    Has sucumbido ante tus heridas.     ║");
                         System.out.println("╚════════════════════════════════════════╝\n");
                         System.out.println("Para volver al menú introduce cualquier número y pulsa Enter:");
-                        int volverGameOver = scanner.nextInt();
-                        break;
-                    }
-
+                        volver= scanner.nextInt();
+                        enPartida=false;
+                        
+                    
+                    } else {
                     System.out.println("\n-------------------------");
                     System.out.println("Estas son tus estadisticas Vida:" + puntosDeVida);
                     System.out.println("\n-------------------------");
@@ -299,28 +300,35 @@ public class JuegoProgramacion {
                                 break;
                         }
                     } while (respuestaFinal != 1 && respuestaFinal != 2);
-                    break;
+                     enPartida=false;
+                     }
+                   } 
+                     break;
 
-                case 2:
-                    System.out.println("\n--- PERFIL DE PERSONAJE ---");
-                    System.out.println("Nombre: " + nombre);
-                    System.out.println("Puntos de vida: " + puntosDeVida);
+                     case 2:
+                    if (nombre.isEmpty()) {
+                        System.out.println("\nNo hay partida anterior.");
+                    } else {
+                        System.out.println("\n--- PERFIL DE PERSONAJE ---");
+                        System.out.println("Nombre: " + nombre);
+                        System.out.println("Puntos de vida: " + puntosDeVida);
 
-                    // recorremos el inventario y mostramos solo los huecos ocupados
-                    System.out.println("Inventario:");
-                    hayObjetos = false;
-                    for (int contador = 0; contador < inventario.length; contador++) {
-                        if (inventario[contador] != null) {
-                            System.out.println("  - " + inventario[contador]);
-                            hayObjetos = true;
+                        // recorremos el inventario y mostramos solo los huecos ocupados
+                        System.out.println("Inventario:");
+                        hayObjetos = false;
+                        for (int contador = 0; contador < inventario.length; contador++) {
+                            if (inventario[contador] != null) {
+                                System.out.println("  - " + inventario[contador]);
+                                hayObjetos = true;
+                            }
                         }
-                    }
-                    if (!hayObjetos) {
-                        System.out.println("  Vacío / Ningún objeto");
-                    }
+                        if (!hayObjetos) {
+                            System.out.println("  Vacío / Ningún objeto");
+                        }
 
-                    System.out.println("\nPara volver introduce cualquier número y pulsa Enter:");
-                    volver = scanner.nextInt();
+                        System.out.println("\nPara volver introduce cualquier número y pulsa Enter:");
+                        volver = scanner.nextInt();
+                    } // fin del else
                     break;
 
                 case 3:
