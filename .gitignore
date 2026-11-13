@@ -1,8 +1,11 @@
+# Archivos compilados y carpeta bin
+bin/
 *.class
-.class/
+
+# Archivos temporales de editores (VS Code, Eclipse, IntelliJ)
+.vscode/
 .settings/
-.bin/
 .project
 .classpath
-.vscode/
 .idea/
+*.iml
